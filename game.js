@@ -16,6 +16,9 @@ laser.src = "images/laser.png";
 var explosion = new Image();
 explosion.src = "images/explosion.png";
 
+var gameOver = new Image();
+gameOver.src = "images/gameover.png";
+
 var state = tieFighter;
 var bgX = 0;
 var bgW = ctx.canvas.width;
@@ -30,30 +33,44 @@ var difficulty = 8;
 var life = 3;
 var score = 0;
 var gameStart = false;
-
+var go;
 
 var waitScreen = setInterval(function(){
 	move();
 	player(500, 200);
 }, 45);	
 
+//reset everything, fix start button
 function start(){
 	clearInterval(waitScreen);
-	gameStart = true;
-	setInterval(function(){
+	clearInterval(go);
+	resetGame();
+	go = setInterval(function(){
 		move();
-		enemy(state, enemyX, enemyY);
 		player(playerX, playerY);
+		enemy(state, enemyX, enemyY);
+		
 	}, 45);	
 }
-
+function resetGame(){
+	difficulty = 8;
+	playerX = 0;
+	playerY = 0;
+	enemyX = 1120;
+	enemyY = 0;
+	gameStart = true;
+	life = 3;
+	score = 0;
+	document.getElementById("lives").innerHTML = "Lives: " + life;
+	document.getElementById("score").innerHTML = "Score: " + score;
+}
 function enemy(state, enemyX, enemyY){
 	ctx.drawImage(state, enemyX, enemyY);
 	if(enemyX <= 0){
 		life--;
 		document.getElementById("lives").innerHTML = "Lives: " + life;
 		resetEnemy();
-		if(lives == 0){
+		if(life == 0){
 			end();
 		}
 	} else {
@@ -99,6 +116,7 @@ function destroy(){
 	enemy(state, enemyX, enemyY);
 	state = tieFighter;
 	score += 500;
+	document.getElementById("score").innerHTML = "Score: " + score;
 	if(score == 1000){
 		difficulty += 5;
 	} else if(score == 3000){
@@ -142,7 +160,9 @@ function move(){
 }
 
 function end(){
-
+	clearInterval(go);
+	ctx.clearRect(0, 0, bgW, bgH);
+	ctx.drawImage(gameOver, 0, 0);
 }
 
 
