@@ -1,5 +1,14 @@
-
+body{
+	background-image: url("../images/bg.jpg");
+	z-index: -1;
+	color: white;
+	background-size: auto;
+}
 #header{
 	color:green;
 	text-align:center;
+}
+
+#start{
+	color:black;
 }
