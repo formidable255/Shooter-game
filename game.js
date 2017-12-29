@@ -31,10 +31,11 @@ var hp = 3;
 var score = 0;
 var gameStart = false;
 
+
 var waitScreen = setInterval(function(){
-		move();
-		player(500, 200);
-	}, 45);	
+	move();
+	player(500, 200);
+}, 45);	
 
 function start(){
 	clearInterval(waitScreen);
