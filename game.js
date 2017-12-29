@@ -40,7 +40,6 @@ var waitScreen = setInterval(function(){
 	player(500, 200);
 }, 45);	
 
-//reset everything, fix start button
 function start(){
 	clearInterval(waitScreen);
 	clearInterval(go);
@@ -52,6 +51,7 @@ function start(){
 		
 	}, 45);	
 }
+
 function resetGame(){
 	difficulty = 8;
 	playerX = 0;
@@ -64,6 +64,7 @@ function resetGame(){
 	document.getElementById("lives").innerHTML = "Lives: " + life;
 	document.getElementById("score").innerHTML = "Score: " + score;
 }
+
 function enemy(state, enemyX, enemyY){
 	ctx.drawImage(state, enemyX, enemyY);
 	if(enemyX <= 0){
