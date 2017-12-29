@@ -27,7 +27,7 @@ var enemyX = 1120;
 var enemyY = 0;
 var random;
 var difficulty = 8;
-var hp = 3;
+var life = 3;
 var score = 0;
 var gameStart = false;
 
@@ -50,8 +50,12 @@ function start(){
 function enemy(state, enemyX, enemyY){
 	ctx.drawImage(state, enemyX, enemyY);
 	if(enemyX <= 0){
-		hp--;
+		life--;
+		document.getElementById("lives").innerHTML = "Lives: " + life;
 		resetEnemy();
+		if(lives == 0){
+			end();
+		}
 	} else {
 		this.enemyX = enemyX - difficulty;
 	}
@@ -137,6 +141,9 @@ function move(){
 	}
 }
 
+function end(){
+
+}
 
 
 /**
