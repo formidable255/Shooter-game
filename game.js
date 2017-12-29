@@ -101,7 +101,7 @@ window.onkeydown = function change(event){
 			if(playerX > 0){
 				playerX -=100;
 			}
-		} else if(key == 16){
+		} else if(key == 17){
 			ctx.drawImage(laser, playerX + 40, playerY);
 			ctx.drawImage(laser, playerX + 40, playerY + 50);
 			attack();
