@@ -103,9 +103,10 @@ window.onkeydown = function change(event){
 				playerX -=100;
 			}
 		} else if(key == 75){
+			var x = setTimeout(function(){
 			ctx.drawImage(laser, playerX + 40, playerY);
 			ctx.drawImage(laser, playerX + 40, playerY + 50);
-			attack();
+			attack();},1);
 		} else if(key == 13){
 			return false;
 		}
