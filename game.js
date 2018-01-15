@@ -36,11 +36,13 @@ var gameStart = false;
 var go;
 var shoot = false;
 
+//Keeps the background moving before game starts
 var waitScreen = setInterval(function(){
 	move();
 	player(500, 200);
 }, 45);	
 
+//Resets the screen and starts the game
 function start(){
 	clearInterval(waitScreen);
 	clearInterval(go);
@@ -48,6 +50,7 @@ function start(){
 	interval();	
 }
 
+//Moves the background and all other ships, lasers
 function interval(){
 	go = setInterval(function(){
 		move();
@@ -62,6 +65,7 @@ function interval(){
 	}, 45);
 }
 
+//Resets the game to the starting
 function resetGame(){
 	difficulty = 8;
 	playerX = 0;
@@ -75,6 +79,8 @@ function resetGame(){
 	document.getElementById("score").innerHTML = "Score: " + score;
 }
 
+//Draws the enemy ship and increases its speed based on score.
+//Also causes a life to be lost when it reaches the other side.
 function enemy(state, enemyX, enemyY){
 	ctx.drawImage(state, enemyX, enemyY);
 	if(enemyX <= 0){
@@ -89,10 +95,12 @@ function enemy(state, enemyX, enemyY){
 	}
 }
 
+//Draw the player
 function player(coordinateX, coordinateY){
 	ctx.drawImage(starship, coordinateX, coordinateY);
 }
 
+//Determinds which key is pressed by the user
 window.onkeydown = function change(event){
 	if(gameStart == true){
 		var key = event.which || event.keyCode;
@@ -120,6 +128,8 @@ window.onkeydown = function change(event){
 	}
 }
 
+//Increases score and difficulty when a ship is destroyed.
+//Draws a different animation
 function destroy(){
 	state = explosion;
 	enemy(state, enemyX, enemyY);
@@ -139,6 +149,7 @@ function destroy(){
 	}
 }
 
+//Determines whether or not an enemy should be destroyed
 function attack(){
 	if(enemyY == playerY && playerX <= enemyX){
 		destroy();
@@ -146,6 +157,7 @@ function attack(){
 	}
 }
 
+//Enemy is reset back to the right side of the screen.
 function resetEnemy(){
 	random = Math.floor(Math.random()*7);
 	if(random == 0){
@@ -156,6 +168,7 @@ function resetEnemy(){
 	enemyX = 1120;
 }
 
+//Draws the background continuously
 function move(){
 	ctx.clearRect(0, 0, bgW, bgH);
 	ctx.drawImage(background, bgX, 0, imageEnd, bgH, 0, 0, imageEnd, bgH);
@@ -168,6 +181,7 @@ function move(){
 	}
 }
 
+//End screen when lost.
 function end(){
 	clearInterval(go);
 	ctx.clearRect(0, 0, bgW, bgH);
