@@ -34,6 +34,7 @@ var life = 3;
 var score = 0;
 var gameStart = false;
 var go;
+var shoot = false;
 
 var waitScreen = setInterval(function(){
 	move();
@@ -44,12 +45,21 @@ function start(){
 	clearInterval(waitScreen);
 	clearInterval(go);
 	resetGame();
+	interval();	
+}
+
+function interval(){
 	go = setInterval(function(){
 		move();
 		player(playerX, playerY);
 		enemy(state, enemyX, enemyY);
-		
-	}, 45);	
+		if(shoot == true){
+			ctx.drawImage(laser, playerX + 40, playerY);
+			ctx.drawImage(laser, playerX + 40, playerY + 50);
+			attack();
+			shoot = false;
+		}
+	}, 45);
 }
 
 function resetGame(){
@@ -103,10 +113,7 @@ window.onkeydown = function change(event){
 				playerX -=100;
 			}
 		} else if(key == 75){
-			var x = setTimeout(function(){
-			ctx.drawImage(laser, playerX + 40, playerY);
-			ctx.drawImage(laser, playerX + 40, playerY + 50);
-			attack();},1);
+			shoot = true;
 		} else if(key == 13){
 			return false;
 		}
